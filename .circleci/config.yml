@@ -78,10 +78,16 @@ workflows:
   version: 2
   cicd:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /.*/
       - test:
           requires:
             - build
+          filters:
+            tags:
+              only: /.*/
       - it:
           context:
             - steam
