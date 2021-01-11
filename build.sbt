@@ -4,7 +4,7 @@ import design.hamu.CompilerPlugins
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.4",
   organization := "design.hamu",
-  version := "0.1.0",
+  version := "0.1.1",
   scalacOptions := Seq("-Xlint", "-Ywarn-unused", "-deprecation", "-Ymacro-annotations"),
   dependencyUpdatesFailBuild := true,
   dependencyUpdatesFilter -= moduleFilter(name = "scala-library")
