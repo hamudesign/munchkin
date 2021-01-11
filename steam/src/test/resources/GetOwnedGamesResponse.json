@@ -1,0 +1,47 @@
+{
+  "response": {
+    "game_count": 7,
+    "games": [
+      {
+        "appid": 10,
+        "name": "Counter-Strike",
+        "playtime_forever": 32,
+        "img_icon_url": "6b0312cda02f5f777efa2f3318c307ff9acafbb5",
+        "img_logo_url": "af890f848dd606ac2fd4415de3c3f5e7a66fcb9f",
+        "playtime_windows_forever": 0,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0
+      },
+      {
+        "appid": 20,
+        "name": "Team Fortress Classic",
+        "playtime_forever": 3,
+        "img_icon_url": "38ea7ebe3c1abbbbf4eabdbef174c41a972102b9",
+        "img_logo_url": "515bc393c861d91b9165f0697040c015f50bcb5e",
+        "playtime_windows_forever": 0,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0
+      },
+      {
+        "appid": 30,
+        "name": "Day of Defeat",
+        "playtime_forever": 6,
+        "img_icon_url": "aadc0ce51ff6ba2042d633f8ec033b0de62091d0",
+        "img_logo_url": "beff21c4d29d2579e794c930bae599cd0c8a8f17",
+        "playtime_windows_forever": 6,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0
+      },
+      {
+        "appid": 40,
+        "name": "Deathmatch Classic",
+        "playtime_forever": 0,
+        "img_icon_url": "c525f76c8bc7353db4fd74b128c4ae2028426c2a",
+        "img_logo_url": "4bb69695ef9d0ae73e73488fb6456aa4ea1215fa",
+        "playtime_windows_forever": 0,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0
+      }
+    ]
+  }
+}
