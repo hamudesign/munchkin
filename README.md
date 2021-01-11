@@ -1,2 +1,0 @@
-# munchkin
-Shared FP Clients
