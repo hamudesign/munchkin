@@ -22,7 +22,7 @@ class SteamEdgeClientSpec extends AnyWordSpec with Matchers with TestDataFixture
         result <- SteamEdgeClient
           .build[IO](apiKey, client)
           .getOwnedGames(getOwnedGamesRequest)
-      } yield result must equal(expected)
+      } yield result mustBe a [GetOwnedGamesResponse]
 
       program.unsafeRunSync
     }

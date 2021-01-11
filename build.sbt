@@ -4,16 +4,19 @@ import design.hamu.CompilerPlugins
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.4",
   organization := "design.hamu",
-  version := "0.0.1",
+  version := "0.0.1-SNAPSHOT",
   scalacOptions := Seq("-Xlint", "-Ywarn-unused", "-deprecation", "-Ymacro-annotations"),
-  dependencyUpdatesFailBuild := true
+  dependencyUpdatesFailBuild := true,
+  dependencyUpdatesFilter -= moduleFilter(name = "scala-library")
 )
 
 lazy val publishSettings = Seq(
+  publishTo := sonatypePublishTo.value,
+  publishConfiguration := publishConfiguration.value.withOverwrite(isSnapshot.value),
   coverageMinimum := 90,
   coverageFailOnMinimum := true,
   crossScalaVersions := Seq(
-    "2.12.10",
+    "2.12.12",
     "2.13.4"
   ),
   scalacOptions := {
@@ -41,11 +44,19 @@ lazy val publishSettings = Seq(
   scmInfo := Some(
     ScmInfo(url("https://github.com/hamuhouse/munchkin"), "scm:git@github.com:hamuhouse/munchkin.git")
   ),
-  publishTo := sonatypePublishTo.value
+  credentials += Credentials(
+    "Sonatype Nexus Repository Manager",
+    "oss.sonatype.org",
+    sys.env.getOrElse("SONATYPE_USERNAME", ""),
+    sys.env.getOrElse("SONATYPE_PASSWORD", "")
+  )
 )
 
 lazy val root = project
   .in(file("."))
+  .settings(
+    publish / skip := true
+  )
   .aggregate(
     steam
   )

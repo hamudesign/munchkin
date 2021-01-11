@@ -22,7 +22,7 @@ class SteamStoreFrontClientSpec extends AnyWordSpec with Matchers with TestDataF
         result <- SteamStoreFrontClient
           .build[IO](client)
           .getAppDetails(getAppDetailsRequest)
-      } yield result must equal(expected)
+      } yield result mustBe a [GetAppDetailsResponse]
 
       program.unsafeRunSync
     }

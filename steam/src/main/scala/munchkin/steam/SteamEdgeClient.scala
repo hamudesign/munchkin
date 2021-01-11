@@ -21,8 +21,8 @@ object SteamEdgeClient {
     endpoint: Uri,
     apiKey: String,
     client: Client[F]
-  ): SteamEdgeClient[Kleisli[F, ?, ?]] =
-    new SteamEdgeClient[Kleisli[F, ?, ?]] with Http4sClientDsl[F] with CirceEntityDecoder {
+  ): SteamEdgeClient[Kleisli[F, *, *]] =
+    new SteamEdgeClient[Kleisli[F, *, *]] with Http4sClientDsl[F] with CirceEntityDecoder {
 
       def getOwnedGames: Kleisli[F, GetOwnedGamesRequest, GetOwnedGamesResponse] =
         Kleisli { req =>
@@ -43,7 +43,7 @@ object SteamEdgeClient {
   def build[F[_]: Sync](
     apiKey: String,
     client: Client[F]
-  ): SteamEdgeClient[Kleisli[F, ?, ?]] = build[F](
+  ): SteamEdgeClient[Kleisli[F, *, *]] = build[F](
     endpoint = uri"https://api.steampowered.com",
     apiKey = apiKey,
     client = client

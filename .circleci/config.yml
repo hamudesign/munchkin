@@ -15,20 +15,91 @@ jobs:
             - v1-dependencies-
       - run:
           name: Compile
-          command: cat /dev/null | sbt compile
+          command: cat /dev/null | sbt +compile
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies--{{ checksum "build.sbt" }}
       - run:
           name: Lint
-          command: cat /dev/null | sbt scalafmtCheck scalafmtCheckAll
+          command: cat /dev/null | sbt +scalafmtCheck +scalafmtCheckAll
       - run:
           name: Dependency Check
-          command: cat /dev/null | sbt dependencyUpdates
+          command: cat /dev/null | sbt +dependencyUpdates
+  test:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
       - run:
           name: Test
-          command: cat /dev/null | sbt coverage test
+          command: cat /dev/null | sbt +coverage +test
       - run:
           name: Coverage
-          command: cat /dev/null | sbt coverageReport
+          command: cat /dev/null | sbt +coverageReport
+  it:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
+      - run:
+          name: IT
+          command: cat /dev/null | sbt +it:test
+  deploy:
+    requires:
+      - build
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
+      - run:
+          name: GPG Setup
+          command: ./bin/gpg-setup.sh
+      - run:
+          name: Import PGP key
+          command: echo -e $PGP_SECRET | base64 --decode | gpg --import --no-tty --batch --yes
+      - run:
+          name: Publish
+          command: cat /dev/null | sbt +publishSigned
+
+workflows:
+  version: 2
+  cicd:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - it:
+          context:
+            - steam
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+      - deploy:
+          context:
+            - sonatype
+          requires:
+            - test
+            - it
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/

@@ -4,7 +4,6 @@ import cats.implicits._
 import cats.data.Kleisli
 import cats.effect.Sync
 import munchkin.steam.model._
-import org.http4s._
 import org.http4s.implicits._
 import org.http4s.{Method, Uri}
 import org.http4s.circe.CirceEntityDecoder
@@ -20,8 +19,8 @@ object SteamStoreFrontClient {
   def build[F[_]: Sync](
     endpoint: Uri,
     client: Client[F]
-  ): SteamStoreFrontClient[Kleisli[F, ?, ?]] =
-    new SteamStoreFrontClient[Kleisli[F, ?, ?]] with Http4sClientDsl[F] with CirceEntityDecoder {
+  ): SteamStoreFrontClient[Kleisli[F, *, *]] =
+    new SteamStoreFrontClient[Kleisli[F, *, *]] with Http4sClientDsl[F] with CirceEntityDecoder {
 
       def getAppDetails: Kleisli[F, GetAppDetailsRequest, GetAppDetailsResponse] =
         Kleisli { req =>
@@ -40,7 +39,7 @@ object SteamStoreFrontClient {
 
   def build[F[_]: Sync](
     client: Client[F]
-  ): SteamStoreFrontClient[Kleisli[F, ?, ?]] = build[F](
+  ): SteamStoreFrontClient[Kleisli[F, *, *]] = build[F](
     endpoint = uri"http://store.steampowered.com",
     client = client
   )
