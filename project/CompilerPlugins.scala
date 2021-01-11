@@ -5,7 +5,7 @@ import sbt._
 object CompilerPlugins {
 
   object KindProjector {
-    val core: ModuleID = "org.typelevel" % "kind-projector" % "0.11.0"
+    val core: ModuleID = "org.typelevel" % "kind-projector" % "0.11.2"
   }
 
   object MacroParadise {

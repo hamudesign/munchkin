@@ -2,7 +2,7 @@ import design.hamu.Dependencies
 import design.hamu.CompilerPlugins
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.2",
+  scalaVersion := "2.13.4",
   organization := "design.hamu",
   version := "0.0.1",
   scalacOptions := Seq("-Xlint", "-Ywarn-unused", "-deprecation", "-Ymacro-annotations"),
@@ -14,7 +14,7 @@ lazy val publishSettings = Seq(
   coverageFailOnMinimum := true,
   crossScalaVersions := Seq(
     "2.12.10",
-    "2.13.2"
+    "2.13.4"
   ),
   scalacOptions := {
     scalaBinaryVersion.value match {
